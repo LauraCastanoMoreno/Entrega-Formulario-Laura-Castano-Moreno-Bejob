@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Sus datos se han registrado correctamente.</h1>
 </body>
 </html>

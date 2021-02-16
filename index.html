@@ -4,31 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Información Alta Telefónica</title>
+    
+    <script>
+        function muestraPuntos(){
+          var puntos=document.getElementById('range').value; 
+          alert("Has valorado con "+puntos+" puntos");
+        }
+        
+        function muestraCuenta(){
+            var pais=document.getElementById('pais').value;
+            var iban=document.getElementById('iban').value; 
+            var entidad=document.getElementById('entidad').value; 
+            var sucursal=document.getElementById('sucursal').value; 
+            var digitoControl=document.getElementById('digitoControl').value; 
+            var cuenta=document.getElementById('cuenta').value; 
+            var laCuenta=pais+iban+"-"+entidad+"-"+sucursal+"-"+digitoControl+"-"+cuenta;
+            alert("Le informamos que la cuenta bancaria es "+ laCuenta);
+         }
+        
+         function muestraFecha(){
+            var fecha=document.getElementById('fecha').value; 
+            var fecha_tipodate=new Date(fecha);
+            var diasemana_numero=fecha_tipodate.getDay();
+            var dias=["domingo","lunes","martes","miércoles","jueves","viernes","sabadete"];
+            var diasem=dias[diasemana_numero];
+            alert("La fecha seleccionada en el elemento de fecha es un " + diasem);
+          }
+         document.addEventListener('DOMContentLoaded', function(event) {
+         let elTitulo=document.getElementsByTagName("h1");
+         for (let i=0; i< elTitulo.length; i++){
+          elTitulo[i].style.color="blue";
+          elTitulo[i].style.textAlign="center";
+          elTitulo[i].style.textShadow="3px 3px 3px yellow";
+         }
+          
+         let losLegends=document.getElementsByTagName("legend");
+         for (let i=0; i< losLegends.length; i++){
+            losLegends[i].style.backgroundColor="red";
+            losLegends[i].style.color="white";
+         }
+          
+          
+         let losFieldset=document.getElementsByTagName("fieldset");
+         for (let i=0; i< losFieldset.length; i++){
+            losFieldset[i].style.backgroundColor="cyan";  
+         }
+        
+         let losInput=document.getElementsByTagName('input');
+         for (let i=0; i< losInput.length; i++){
+            if (losInput[i].type=="text"){
+              losInput[i].style.backgroundColor="yellow";  
+            }
+            if (losInput[i].type=="button"){
+              losInput[i].style.backgroundColor="pink";
+              losInput[i].style.width="100px";
+              losInput[i].style.height="40px"; 
+              losInput[i].style.whiteSpace="normal";
+             }
+             losInput[i].style.margin="2px"; 
+         }  
+        });
+      </script>
    
+
+
+   <!-- formulario html -->
+
 </head>
 
 <body>
-    <h1 id="titulo">Formulario Información Alta Telefónica</h1>
+    <h1>Formulario Información Alta Telefónica</h1>
 
 
-    <form action="procesarFormulario.html" name="telefonica" method="POST">
+    <form action="procesarFormulario.php" name="telefonica" method="POST">
         
         <fieldset>
             <legend>Datos Personales</legend>
-            Nombre: <input type="text" name="nombre" maxlength="30" /><br/><br/>
-            Apellidos: <input type="text" name="apellidos" maxlength="60" /><br/><br/>
-            Dirección: <input type="text" name="direccion" maxlength="60" /><br/><br/>
-            Codigo Postal: <input type="text" name="cpostal" pattern="[0-9]{5}" /><br/><br/>
-            Localidad: <input type="text" name="localidad" /><br/>
+            Nombre:        <input type="text" name="nombre"    maxlength="30" minlength="2" required/><br/><br/>
+            Apellidos:     <input type="text" name="apellidos" maxlength="60" minlength="2" required/><br/><br/>
+            Dirección:     <input type="text" name="direccion" maxlength="60" minlength="2" required/><br/><br/>
+            Codigo Postal: <input type="text" name="cpostal"   minlength="5"pattern="[0-9]{5}" required/><br/><br/>
+            Localidad:     <input type="text" name="localidad" minlength="2"required/><br/>
         </fieldset>
     <br/>
 
 
         <fieldset>
             <legend>Tipo de Contratación</legend>
-                <input type="radio" name="tipoc" value="nuevo" checked="checked">Nueva Contratación
-                <input type="radio" name="tipoc" value="porta">Portabilidad
-                <input type="radio" name="tipoc" value="cambio">Cambio de Contrato
+                <input type="radio" name="tipoc" value="nuevo"  required checked="checked" >Nueva Contratación
+                <input type="radio" name="tipoc" value="porta"  required>Portabilidad
+                <input type="radio" name="tipoc" value="cambio" required>Cambio de Contrato
             <br/>
             <br/>
             Elija la compañía actual:
@@ -52,12 +117,12 @@
         
         <fieldset>
             <legend>Datos Bancarios</legend>
-            País: <input type="text" name="pais" id="pais" value="ES" readonly="readonly" /> (sólo válido ES)<br/><br/>
-            Control IBAN: <input type="text" name="iban" id="iban" placeholder="XX" pattern="[0-9]{2}" /> (dos dígitos)<br/><br/>
-            Entidad: <input type="text" name="entidad" id="entidad" placeholder="XXXX" pattern="[0-9]{4}" /> (cuatro dígitos)<br/><br/>
-            Sucursal: <input type="text" name="sucursal" id="sucursal" placeholder="XXXX" pattern="[0-9]{4}" /> (cuatro dígitos)<br/><br/>
-            DC: <input type="text" name="digitoControl" id="digitoControl" placeholder="XX" pattern="[0-9]{2}" /> (dos dígitos)<br/><br/>
-            Cuenta: <input type="text" name="cuenta" id="cuenta" placeholder="XXXXXXXXXX" pattern="[0-9]{10}" /> (diez dígitos)<br/>
+            País:         <input type="text" name="pais" id="pais" value="ES" readonly="readonly" required/> (sólo válido ES)<br/><br/>
+            Control IBAN: <input type="text" name="iban" id="iban" placeholder="XX" pattern="[0-9]{2}" required /> (dos dígitos)<br/><br/>
+            Entidad:      <input type="text" name="entidad" id="entidad" placeholder="XXXX" pattern="[0-9]{4}" required/> (cuatro dígitos)<br/><br/>
+            Sucursal:     <input type="text" name="sucursal" id="sucursal" placeholder="XXXX" pattern="[0-9]{4}" required/> (cuatro dígitos)<br/><br/>
+            DC:           <input type="text" name="digitoControl" id="digitoControl" placeholder="XX" pattern="[0-9]{2}" required/> (dos dígitos)<br/><br/>
+            Cuenta:       <input type="text" name="cuenta" id="cuenta" placeholder="XXXXXXXXXX" pattern="[0-9]{10}" required/> (diez dígitos)<br/>
         </fieldset>
         <br/>
        
@@ -67,20 +132,23 @@
                 <input type="checkbox" name="tv">A través de la TV<br/><br/>
                 <input type="checkbox" name="radio">A través de la radio<br/><br/>
                 <input type="checkbox" name="internet">A través de Internet<br/><br/>
-                <input type="checkbox" name="otros">Otros<br/><br/>
+                <input type="checkbox" name="otros"> Otros<br/><br/>
                 <input type="range" name="range" id="range" min="1" max="5"> Valoración [1-5]<br/><br/>
-                Fecha de la Encuesta: <input type="date" id="fecha" name="fecha" value="2019-01-01">
+                Fecha de la Encuesta: 
+                <input type="date" id="fecha" name="fecha" value="2019-01-01">
         </fieldset>   
         
-        <input type="submit" value="Enviar Datos"/>
-        <input type="reset" value="Borrar Datos"/>
+        <input type="submit" value="Enviar Datos" />
+        <input type="reset" value="Borrar Datos" />
         <br>
         <input type="button" value="Mostrar Valoración" onclick="muestraPuntos()"/>
         <input type="button" value="Mostrar Cuenta" onclick="muestraCuenta()"/>
         <input type="button" value="Mostrar Día Semana" onclick="muestraFecha()"/>
     
     </form>
-    <script src="./js/app.js"></script>
+    
 </body>
+
+
 
 </html>
